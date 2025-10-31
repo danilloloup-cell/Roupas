@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo — Eterna Moda</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/script.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a href="index.html" class="brand"><span class="brand-mark">EM</span> <span class="brand-name">Eterna Moda</span></a>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="catalogo.html" class="active">Produtos</a></li>
+          <li><a href="carrinho.html">Carrinho</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="contato.html">Contato</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <h2>Catálogo completo</h2>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px">
+      <select id="filterStyle">
+        <option value="">Todos os estilos</option>
+        <option value="social">Social</option>
+        <option value="casual">Casual</option>
+        <option value="premium">Premium</option>
+      </select>
+      <select id="filterSize">
+        <option value="">Todos os tamanhos</option>
+        <option value="P">P</option>
+        <option value="M">M</option>
+        <option value="G">G</option>
+        <option value="GG">GG</option>
+      </select>
+      <input type="text" id="searchCatalog" placeholder="Buscar produtos..." style="flex:1;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--text)">
+    </div>
+    <div id="catalogGrid" class="grid"></div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div>
+        <strong>Eterna Moda</strong><br>
+        <small>© <span id="year"></span> Todos os direitos reservados.</small>
+      </div>
+      <div class="footer-links">
+        <a href="sobre.html">Sobre</a>
+        <a href="contato.html">Contato</a>
+        <a href="catalogo.html">Produtos</a>
+      </div>
+    </div>
+  </footer>
+
+<script>
+function renderCatalog(){
+  const container = document.getElementById('catalogGrid'); if(!container) return;
+  const style = document.getElementById('filterStyle').value;
+  const size = document.getElementById('filterSize').value;
+  const search = document.getElementById('searchCatalog').value.toLowerCase();
+  container.innerHTML = '';
+  PRODUCTS.filter(p=>{
+    return (!style || p.style===style) &&
+           (!size || p.sizes.includes(size)) &&
+           (!search || p.title.toLowerCase().includes(search));
+  }).forEach(p=>{
+    const el = document.createElement('article'); el.className='card';
+    el.innerHTML = `
+      <div class="media"><img src="${p.imgs[0]}" alt="${p.title}"></div>
+      <h3>${p.title}</h3>
+      <div class="meta"><span class="small">${p.style}</span><strong class="price">${formatBRL(p.price)}</strong></div>
+      <div style="display:flex;gap:8px;margin-top:auto">
+        <button class="btn-cta" data-add="${p.id}">Adicionar</button>
+        <button class="btn-ghost" data-view="${p.id}">Ver</button>
+      </div>
+    `;
+    container.appendChild(el);
+  });
+
+  container.querySelectorAll('[data-add]').forEach(btn => btn.addEventListener('click', e => addToCart(Number(e.currentTarget.dataset.add))));
+  container.querySelectorAll('[data-view]').forEach(btn => btn.addEventListener('click', e => openProductModal(Number(e.currentTarget.dataset.view))));
+}
+
+document.addEventListener('DOMContentLoaded', ()=>{
+  renderCatalog();
+  document.getElementById('filterStyle').addEventListener('change', renderCatalog);
+  document.getElementById('filterSize').addEventListener('change', renderCatalog);
+  document.getElementById('searchCatalog').addEventListener('input', renderCatalog);
+});
+</script>
+</body>
+</html>

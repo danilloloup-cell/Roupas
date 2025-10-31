@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Eterna Moda — Preto & Vermelho (Refinado)</title>
+  <meta name="description" content="Eterna Moda - loja de roupas com design premium, cores que transmitem autoridade e desejo.">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/script.js" defer></script>
+  <!-- Google font (opcional) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header" role="banner">
+    <div class="wrap header-inner">
+      <a href="index.html" class="brand" aria-label="Eterna Moda">
+        <span class="brand-mark">EM</span>
+        <span class="brand-name">Eterna Moda</span>
+      </a>
+
+      <nav class="main-nav" role="navigation" aria-label="Menu principal">
+        <ul>
+          <li><a href="index.html" class="active">Início</a></li>
+          <li><a href="produtos.html">Produtos</a></li>
+          <li><a href="carrinho.html">Carrinho</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="contato.html">Contato</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button id="searchBtn" class="icon-btn" aria-label="Pesquisar">🔍</button>
+        <a href="login.html" class="btn-ghost">Entrar</a>
+        <button id="openCart" class="btn-cta" aria-label="Abrir carrinho">Carrinho <span id="cartBadge" class="cart-badge">0</span></button>
+      </div>
+    </div>
+
+    <!-- Search bar (togglable) -->
+    <div id="searchBar" class="searchbar" hidden>
+      <div class="wrap">
+        <input id="globalSearch" type="search" placeholder="Buscar produto, estilo ou tamanho..." aria-label="Buscar produtos">
+        <button id="searchClear" class="icon-btn" aria-label="Limpar busca">✖</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <main>
+    <section class="hero wrap">
+      <div class="hero-left">
+        <h1>Autoridade & Desejo — Vista sua melhor versão</h1>
+        <p class="lead">Coleção cuidadosamente trabalhada para transmitir confiança. Preços claros, trocas fáceis e entrega rápida.</p>
+        <div class="hero-ctas">
+          <a class="btn-cta large" href="produtos.html">Ver Coleção</a>
+          <button id="openLookbook" class="btn-ghost">Ver Lookbook</button>
+        </div>
+        <ul class="hero-features">
+          <li>✅ Troca fácil 30 dias</li>
+          <li>🚚 Frete grátis acima de R$199</li>
+          <li>🔒 Compra segura</li>
+        </ul>
+      </div>
+      <div class="hero-media">
+        <!-- Uso de srcset para performance (substitua URLs pelas suas imagens otimizadas) -->
+        <img loading="lazy"
+             srcset="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?q=80&w=600 600w,
+                     https://images.unsplash.com/photo-1541099649105-f69ad21f3246?q=80&w=1200 1200w"
+             sizes="(max-width:900px) 100vw, 520px"
+             src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?q=80&w=1200"
+             alt="Campanha Eterna Moda">
+      </div>
+    </section>
+
+    <!-- FEATURED -->
+    <section class="wrap section">
+      <div class="section-head">
+        <h2>Em destaque</h2>
+        <a href="produtos.html" class="link-muted">Ver tudo →</a>
+      </div>
+
+      <div id="featuredGrid" class="grid">
+        <!-- Cards injetados via JS -->
+      </div>
+    </section>
+
+    <!-- CTA BANNER -->
+    <section class="cta-banner">
+      <div class="wrap">
+        <div class="cta-inner">
+          <div>
+            <h3>Receba lançamentos e ofertas</h3>
+            <p>Inscreva-se e ganhe 10% na primeira compra.</p>
+          </div>
+          <form id="newsletterForm" class="newsletter-form" aria-label="Assinar newsletter">
+            <input id="newsletterEmail" type="email" placeholder="Seu e-mail" required>
+            <button type="submit" class="btn-cta">Inscrever</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div>
+        <strong>Eterna Moda</strong><br>
+        <small>© <span id="year"></span> Todos os direitos reservados.</small>
+      </div>
+      <div class="footer-links">
+        <a href="sobre.html">Sobre</a>
+        <a href="contato.html">Contato</a>
+        <a href="produtos.html">Produtos</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CART DRAWER (global) -->
+  <aside id="cartDrawer" class="cart-drawer" aria-hidden="true">
+    <header>
+      <h4>Seu Carrinho</h4>
+      <button id="closeCart" class="icon-btn" aria-label="Fechar carrinho">✖</button>
+    </header>
+    <div id="cartBody" class="cart-body" tabindex="0"><!-- itens por JS --></div>
+    <footer class="cart-footer">
+      <div class="totals">
+        <div class="small">Total</div>
+        <div id="cartTotal">R$ 0,00</div>
+      </div>
+      <div><button id="checkoutBtn" class="btn-cta">Finalizar</button></div>
+    </footer>
+  </aside>
+
+  <!-- PRODUCT QUICK-MODAL -->
+  <div id="productModal" class="modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal-content">
+      <button id="modalClose" class="modal-close" aria-label="Fechar">✖</button>
+      <div id="modalInner"></div>
+    </div>
+  </div>
+
+</body>
+</html>
